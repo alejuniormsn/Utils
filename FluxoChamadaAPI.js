@@ -33,14 +33,8 @@ import { apiCall } from "services/apiCall";
 
 export const mutationPostComponente = (payload) => {
   return apiCall("POST", "/endpoint/url", payload, true)
-/*  .then((data) => data.json())
-    .catch((error) => error.json())
-*/
-  // Outra forma é como abaixo:
-  .then((data) => {
-    if (data.ok) data.json();
-    else throw data.json();
-  })
+  .then((data) => data.json())
+  .catch((error) => error.json())
 }
 
 // services/apiCall.js
