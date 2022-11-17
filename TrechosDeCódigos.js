@@ -31,7 +31,8 @@ setAmount(formatter.format(valor).toString().replace(/\D/g, "")); //regex deixa 
   "statusCode": 404,
   "errors": [
     {
-      "message": "BadRequest"
+      "errorCode": "ER-2022404",
+      "message": "NOTFOUND the register"
     }
   ],
   "body": []
