@@ -28,15 +28,13 @@ setAmount(formatter.format(valor).toString().replace(/\D/g, "")); //regex deixa 
 
 // Envelope resposta API
 {
-  "version": "1.0",
-  "status": 400,
+  "statusCode": 404,
   "errors": [
     {
-      "errorCode": 400,
       "message": "BadRequest"
     }
   ],
-  "body": [{}]
+  "body": []
 }
 
 // 
