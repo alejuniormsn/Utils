@@ -1,5 +1,5 @@
 // Entrada da chamada no componente (usando Formik)
-import React, { useSate, useCallback } from "react"
+import { useState, useCallback } from "react"
 import { toast } from "react-toastify"
 
 const [submitting, setSubmitting] = useState(false);
@@ -33,8 +33,8 @@ import { apiCall } from "services/apiCall";
 
 export const mutationPostComponente = (payload) => {
   return apiCall("POST", "/endpoint/url", payload, true)
-  .then((data) => data.json())
-  .catch((error) => error.json())
+    .then((data) => data.json())
+    .catch((error) => error.json())
 }
 
 // services/apiCall.js
@@ -61,7 +61,7 @@ const urlFormater = (endpoint) => {
   return Endpoints.apiGateway = endpoint;
 };
 
-const apiOptions = (method, payload, otp=null, stringify=true) => {
+const apiOptions = (method, payload, otp = null, stringify = true) => {
   let requestOptions = {
     method: method,
     AccessControlAllowOrigin: "*",
@@ -72,13 +72,13 @@ const apiOptions = (method, payload, otp=null, stringify=true) => {
       Authorization: "Bearer " + sessionStorage.getItem("Access_Token"),
       [sessionStorage.getItem(
         "Header_to_SessionToken"
-        )]: sessionStorage.getItem("Session_Token")
-      }),
-      body: payload ? JSON.stringify(payload) : null,
-    };
+      )]: sessionStorage.getItem("Session_Token")
+    }),
+    body: payload ? JSON.stringify(payload) : null,
+  };
 
-    if (otp !== null) {
-      requestOptions.headers = {
+  if (otp !== null) {
+    requestOptions.headers = {
       "Content-Type": "application/json",
       "Request-From": "Portal",
       Authorization: "Bearer " + sessionStorage.getItem("Access_Token"),

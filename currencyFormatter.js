@@ -9,5 +9,7 @@ export const currencyFormatter = (value, type = "normal") => {
   }
 
   return value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
-  
+
 }
+
+// também pode ser usado a biblioteca CurrencyJS para personalizar a moeda.
