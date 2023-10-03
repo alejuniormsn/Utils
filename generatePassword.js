@@ -20,3 +20,8 @@ function getPassword() {
 }
 
 getPassword();
+
+// ou uma simples linha com um hash de dez caracteres
+  generateToken(): string {
+    return Math.random().toString(36).substring(2, 12);
+  }
