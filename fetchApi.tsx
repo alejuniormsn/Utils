@@ -1,11 +1,22 @@
 async function getUser(id: number){
-	const request = await fetch(`https://reqres.in/api/users/${id}?delau=1`);
+	const response = await fetch(`http://192.168.1.199:3333${uri}`, {
+  	method: method,
+    credentials: "same-origin",
+    body:
+  	  method === "GET" || method === "DELETE" ? undefined : JSON.stringify(payload),
+  		headers: {
+       "Content-Type": "application/json",
+       Authorization: `Bearer ${token}`,
+  	  },
+  	});
+	
+	let result = await response.json();
 
-	const response = await request.json();
-
-	if(!request.ok) {
+	if(!response.ok) {
 		throw new Error(response.error);
 	}
-
-	return response.data;
+  
+	result = { ...result, cookie: response.headers.get("set-cookie") };
+  
+	return result;
 }
