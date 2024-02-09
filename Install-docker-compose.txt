@@ -1,0 +1,78 @@
+Install-docker-compose.txt
+
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+sudo groupadd docker
+
+sudo usermod -aG docker $USER
+
+newgrp docker
+
+docker -v
+docker run hello-world
+
+
+Como instalar Docker e docker-compose no Linux Mint
+
+Instalando Docker no Linux Mint e Ubuntu
+Descrevo as etapas necessárias para instalar o Docker no Linux Mint usando repositórios oficiais - que é semelhante à instalação no Ubuntu ou derivados do Debian:
+
+1- Adicione as bibliotecas dos repositórios APT:
+	
+		sudo apt-get update && sudo apt-get install \ca-certificates \curl \gnupg \lsb-release
+
+2 - Adicionar chaves GPG oficiais do Docker
+	
+		sudo mkdir -p /etc/apt/keyrings
+
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+3 - Configure o repositório, você pode usar o seguinte comando
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+4 - Digite o seguinte comando para verificar a versão upstream:
+
+		sudo nano /etc/upstream-release/lsb-release 
+
+		# Outpu example:
+
+		# DISTRIB_ID=Ubuntu
+		# DISTRIB_RELEASE=20.04
+		# DISTRIB_CODENAME=focal
+		# DISTRIB_DESCRIPTION="Ubuntu Focal Fossa"
+
+No exemplo acima, o resultado da versão Linux Mint para Ubuntu tem que ser focal.
+
+5 - Agora você precisa alterar o nome no arquivo Apt de origem do Docker:
+	
+		sudo nano /etc/apt/sources.list.d/docker.list 
+
+	Altere para focal na seguinte linha do arquivo:
+	
+	deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu focal stable
+
+Agora é só instalar docker-enginee docker-compose:
+
+	sudo apt-get update
+	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin docker-compose -y
+
+Adicionando a conta de usuário ao grupo docker
+		
+		sudo groupadd docker && sudo usermod -aG docker $USER && newgrp docker
+
+Restart o computador e Pronto!
